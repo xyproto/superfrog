@@ -1,0 +1,16 @@
+3D
+    * Blender
+	blender
+    * Equinox
+	equinox
+    * K-3D
+	k-3d
+    * Wings3D
+	wings3d
+Games
+    * Freedroid
+	freedroid
+    * Xlife
+	xlife
+/usr/lib
+    ! ls /usr/lib
