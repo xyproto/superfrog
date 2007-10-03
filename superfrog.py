@@ -258,8 +258,7 @@ class MenuProgram:
 
             self.active = self.r
         else:
-            print "select", text
-            #pass
+            self.menu.execute(text)
 
     def on_back(self):
         if self.active == self.r:
@@ -272,8 +271,8 @@ class MenuProgram:
 
     def on_move(self):
         if self.active == self.r:
-            print "display content about", self.active.selected()
-            #pass
+            #print "display content about", self.active.selected()
+            pass
 
     def wait_answer(self):
         LETTERS = map(ord, "abcdefghijklmnopqrstuvwxyz" + chr(230) + chr(248) + chr(229))
@@ -343,6 +342,8 @@ class Menu:
         self.rselected = rselected
         self.menudata = open("menu.txt").read().replace("    ", "\t")
 
+        self.commands = {}
+
         current_category = ""
         current_name = ""
         current_command = ""
@@ -363,6 +364,12 @@ class Menu:
             elif line.strip().startswith("!"):
                 current_command = line.strip()[1:].strip()
                 self.roptions[self.loptions[0].index(current_category)] = os.popen3(current_command)[1].read().split("\n")[:-1]
+            else:
+                current_command = line.strip()
+                self.commands[current_name] = current_command
+
+    def execute(self, what):
+        os.system(self.commands[what])
 
     def lselect(self, text):
         if self.lactive:
