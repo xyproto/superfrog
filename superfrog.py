@@ -163,8 +163,6 @@ class List:
                 self.selectednr = chosen
                 return True
 
-
-
     def selected(self):
         return self.itemlist[self.selectednr]
 
@@ -353,6 +351,8 @@ class Menu:
         self.roptions = {}
 
         for line in self.menudata.strip().split("\n"):
+            if not line:
+                continue
             if (not line.startswith(" ")) and (not line.startswith("\t")):
                 current_category = line.strip()
                 self.loptions[0].append(current_category)
@@ -374,6 +374,7 @@ class Menu:
             os.system(self.commands[what])
         else:
             print "No command for:", what
+            print self.commands
 
     def lselect(self, text):
         if self.lactive:

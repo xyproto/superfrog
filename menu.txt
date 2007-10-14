@@ -12,5 +12,15 @@ Games
 	freedroid
     * Xlife
 	xlife
+
+/usr/games
+    ! ls /usr/games
+    * robots
+        xterm -e /usr/games/robots
+
 /usr/lib
     ! ls /usr/lib
+    * blender
+        xmessage -center "The library files for Blender, a 3D-program"
+    * bigloo
+        xmessage -center "The library files for Bigloo, a scheme interpreter for .NET"
