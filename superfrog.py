@@ -1,4 +1,4 @@
-#!/usr/bin/env pytho
+#!/usr/bin/env python
 #-*-coding:utf8-*-
 
 import os
@@ -203,7 +203,8 @@ class MenuProgram:
             print "layout must be 1 in total!"
             sys.exit(1)
 
-        pygame.init()
+        pygame.display.init()
+        pygame.font.init()
 
         if fullscreen:
             self.screen = pygame.display.set_mode((self.width, self.height), FULLSCREEN)
@@ -369,7 +370,10 @@ class Menu:
                 self.commands[current_name] = current_command
 
     def execute(self, what):
-        os.system(self.commands[what])
+        if what in self.commands:
+            os.system(self.commands[what])
+        else:
+            print "No command for:", what
 
     def lselect(self, text):
         if self.lactive:
