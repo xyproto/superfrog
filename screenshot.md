@@ -1,0 +1,1 @@
+![http://superfrog.googlecode.com/svn/trunk/screenshot.png](http://superfrog.googlecode.com/svn/trunk/screenshot.png)
