@@ -1,11 +1,11 @@
 Superfrog Menu System
 =====================
 
-![superfrog](img/superfrog.png)
-
 This is an old little program from 2007, for displaying a simple menu with python + pygame.
 
-![screenshot](img/screenshot.png)
+| Screenshot                        | Logo                            |
+|-----------------------------------|---------------------------------|
+| ![screenshot](img/screenshot.png) | ![superfrog](img/superfrog.png) |
 
 I have recently ported it to Python 3 and tested it with Python 3.8 and it needs more testing.
 
