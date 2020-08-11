@@ -16,4 +16,5 @@ General info
 
 * Version: 1.0.0
 * License: GPL2
+* License for `Hack-Bold.ttf`: `SIL Open Font License 1.1 and Bitstream Vera License`
 * Author: Alexander F. Rødseth &lt;rodseth@gmail.com&gt;

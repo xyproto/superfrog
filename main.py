@@ -12,15 +12,16 @@ from pygame.locals import *
 
 # this makes python2 go a lot faster, but is not supported on python3 without using
 # nuitka, pypy or something
-#try:
+# try:
 #    import psyco
 #    psyco.full()
-#except ImportError:
+# except ImportError:
 #    pass
+
 
 class List:
 
-    def __init__(self, screen, top, left, width, height, itemlist, selectednr, fg, bg, fontsize=32, fontface="superfrog.ttf"):
+    def __init__(self, screen, top, left, width, height, itemlist, selectednr, fg, bg, fontsize=32, fontface="Hack-Bold.ttf"):
         self.screen = screen
         self.top = top
         self.left = left
