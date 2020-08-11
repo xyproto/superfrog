@@ -1,5 +1,5 @@
-Superfrog
-=========
+Superfrog Menu System
+=====================
 
 ![superfrog](img/superfrog.png)
 
