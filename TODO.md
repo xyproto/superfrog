@@ -1,5 +1,10 @@
-* A python-script should be able to provide a class that can:
+# Plans
+
+- [ ] Make it possible to hold down arrow keys when browsing a menu.
+- [ ] Replace the `.ttf` font with something else.
+
+Ideas
+
+* [ ] A python-script should be able to provide a class that can:
     - produce a menu (list of strings)
     - return a command for each string
-
-* One should be able to hold down arrow up or arrow down in order to browse a list
