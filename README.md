@@ -1,7 +1,7 @@
 Superfrog Menu System
 =====================
 
-This is an old little program from 2007, for displaying a simple menu with python + pygame.
+This is an odd little program from 2007, for displaying a simple menu with Python and Pygame.
 
 | Screenshot                        | Logo                            |
 |-----------------------------------|---------------------------------|
