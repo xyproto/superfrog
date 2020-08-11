@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+*.bak
+*.tmp
+*.swp
+__pycache__
+include.txt
