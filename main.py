@@ -10,12 +10,13 @@ import subprocess
 # this was standard for pygame back in the day
 from pygame.locals import *
 
-try:
-    import psyco
-    psyco.full()
-except ImportError:
-    pass
-
+# this makes python2 go a lot faster, but is not supported on python3 without using
+# nuitka, pypy or something
+#try:
+#    import psyco
+#    psyco.full()
+#except ImportError:
+#    pass
 
 class List:
 
@@ -249,7 +250,7 @@ class MenuProgram:
         if self.splashimage:
             scaled_image = self.splashimage
         else:
-            image = pygame.image.load("superfrog.png")
+            image = pygame.image.load("img/superfrog.png")
             scaled_image = pygame.transform.scale(image, (self.width, self.height))
         return self.screen.blit(scaled_image, (0, 0))
 
