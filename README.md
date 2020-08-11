@@ -9,7 +9,7 @@ This is an odd little program from 2007, for displaying a simple menu with Pytho
 
 Supports Python 3.8 and beyond. Please report an issue if there are... issues.
 
-The menu can be configured by editing `menu.txt`. It can launch executables on your system.
+The menu can be configured by editing `menu.txt`. It can be used as an application launcher.
 
 General info
 ------------
