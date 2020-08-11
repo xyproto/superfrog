@@ -7,7 +7,9 @@ This is an odd little program from 2007, for displaying a simple menu with Pytho
 |-----------------------------------|---------------------------------|
 | ![screenshot](img/screenshot.png) | ![superfrog](img/superfrog.png) |
 
-I have recently ported it to Python 3 and tested it with Python 3.8 and it needs more testing.
+Supports Python 3.8 and beyond. Please report an issue if there are... issues.
+
+The menu can be configured by editing `menu.txt`. It can launch executables on your system.
 
 General info
 ------------
