@@ -1,10 +1,13 @@
 #!/usr/bin/env python
-#-*-coding:utf8-*-
+# -*-coding:utf8-*-
 
 import os
 import time
 import sys
 import pygame
+import subprocess
+
+# this was standard for pygame back in the day
 from pygame.locals import *
 
 try:
@@ -12,6 +15,7 @@ try:
     psyco.full()
 except ImportError:
     pass
+
 
 class List:
 
@@ -41,7 +45,7 @@ class List:
         self.selectednr = selectednr
         self.listlength = len(self.itemlist)
         if self.listlength == 0:
-            print "Can't draw an empty list!"
+            print("Can't draw an empty list!")
             sys.exit(1)
 
     def draw(self):
@@ -49,19 +53,19 @@ class List:
 
         gfx_rows = self.rows
         if len(self.itemlist) <= gfx_rows:
-            #print "case 1: short list"
+            # print "case 1: short list"
             startrow = 0
             endrow = self.listlength
         elif self.selectednr <= int(gfx_rows / 2):
-            #print "case 2: selected at the top"
+            # print "case 2: selected at the top"
             startrow = 0
             endrow = startrow + gfx_rows
         elif self.selectednr > (self.listlength - int(gfx_rows / 2) - 1):
-            #print "case 3: selected at the bottom"
+            # print "case 3: selected at the bottom"
             startrow = self.selectednr - int(gfx_rows / 2)
             endrow = len(self.itemlist)
         else:
-            #print "case 4: selected in a long list"
+            # print "case 4: selected in a long list"
             startrow = self.selectednr - int(gfx_rows / 2)
             endrow = startrow + gfx_rows
 
@@ -117,7 +121,7 @@ class List:
         # This is useful if some other function wishes to animate the text
         return selected_surface, selected_pos
 
-    def next(self):
+    def __next__(self):
         self.selectednr += 1
         if self.selectednr == self.listlength:
             self.selectednr = 0
@@ -174,11 +178,11 @@ class List:
     def pagedown(self):
         numdown = min(self.rows / 2, self.listlength - self.selectednr - 1)
         for x in range(numdown):
-            self.next()
+            next(self)
 
     def home(self):
         self.selectednr = 0
-    
+
     def end(self):
         self.selectednr = self.listlength - 1
 
@@ -198,7 +202,7 @@ class MenuProgram:
         self.menu = Menu()
         self.layout = layout
         if sum(layout) != 1:
-            print "layout must be 1 in total!"
+            print("layout must be 1 in total!")
             sys.exit(1)
 
         pygame.display.init()
@@ -221,16 +225,18 @@ class MenuProgram:
         time.sleep(splashtime)
 
         # --- Menu screen ---
-        #self.screen.fill(self.bg)
+        # self.screen.fill(self.bg)
 
         self.lwidth = int(self.width * layout[0]) + 10
-        self.l = List(self.screen, top=10, left=10, width=self.lwidth, height=self.height - 20, itemlist=self.menu.lmenu(), selectednr=0, fg=self.fg, bg=self.bg)
+        self.l = List(self.screen, top=10, left=10, width=self.lwidth, height=self.height -
+                      20, itemlist=self.menu.lmenu(), selectednr=0, fg=self.fg, bg=self.bg)
         self.l.draw()
 
         self.rwidth = int(self.width * layout[1]) + 10
         skew = 30
-        self.r = List(self.screen, top=10+skew, left=10 + self.rwidth, width=self.rwidth, height=self.height - 20 - skew, itemlist=self.menu.rmenu(), selectednr=0, fg=self.fg, bg=self.bg)
-        #self.r.clear()
+        self.r = List(self.screen, top=10+skew, left=10 + self.rwidth, width=self.rwidth,
+                      height=self.height - 20 - skew, itemlist=self.menu.rmenu(), selectednr=0, fg=self.fg, bg=self.bg)
+        # self.r.clear()
 
         self.active = self.l
 
@@ -253,7 +259,7 @@ class MenuProgram:
             self.menu.lselect(text)
 
             self.r.set(self.menu.rmenu(), 0)
-            #self.r = List(self.screen, top=10, left=10 + self.rwidth, width=self.rwidth, height=self.height - 20, itemlist=self.menu.rmenu(), selectednr=0, fg=self.fg, bg=self.bg)
+            # self.r = List(self.screen, top=10, left=10 + self.rwidth, width=self.rwidth, height=self.height - 20, itemlist=self.menu.rmenu(), selectednr=0, fg=self.fg, bg=self.bg)
 
             self.active = self.r
         else:
@@ -265,16 +271,16 @@ class MenuProgram:
             self.menu.back()
             self.active = self.l
             self.active.draw()
-        #else:
+        # else:
         #    print "can't back from left"
 
     def on_move(self):
         if self.active == self.r:
-            #print "display content about", self.active.selected()
+            # print "display content about", self.active.selected()
             pass
 
     def wait_answer(self):
-        LETTERS = map(ord, "abcdefghijklmnopqrstuvwxyz" + chr(230) + chr(248) + chr(229))
+        LETTERS = list(map(ord, "abcdefghijklmnopqrstuvwxyz" + chr(230) + chr(248) + chr(229)))
 
         keep_running = True
 
@@ -291,7 +297,7 @@ class MenuProgram:
                         else:
                             self.on_back()
                     elif event.key == K_DOWN:
-                        self.active.next()
+                        next(self.active)
                         self.on_move()
                         self.active.draw()
                     elif event.key == K_UP:
@@ -323,14 +329,21 @@ class MenuProgram:
                             if self.active.jumptoletter(chr(event.key)):
                                 self.on_move()
                                 self.active.draw()
-                        #else:
+                        # else:
                         #    print "bah", event.key
                     else:
                         pass
 
             pygame.display.flip()
 
-            #self.clock.tick(60)
+            # self.clock.tick(60)
+
+
+def popen3(cmd, mode='t', bufsize=-1):
+    p = subprocess.Popen(cmd, shell=True, bufsize=bufsize, stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+    return p.stdin, p.stdout, p.stderr
+
 
 class Menu:
 
@@ -347,7 +360,7 @@ class Menu:
         current_name = ""
         current_command = ""
 
-        self.loptions = {0:[]}
+        self.loptions = {0: []}
         self.roptions = {}
 
         for line in self.menudata.strip().split("\n"):
@@ -358,13 +371,17 @@ class Menu:
                 self.loptions[0].append(current_category)
             elif line.strip().startswith("*"):
                 current_name = line.strip()[1:].strip()
-                if not self.roptions.has_key(self.loptions[0].index(current_category)):
+                if self.loptions[0].index(current_category) not in self.roptions:
                     self.roptions[self.loptions[0].index(current_category)] = [current_name]
                 else:
                     self.roptions[self.loptions[0].index(current_category)].append(current_name)
             elif line.strip().startswith("!"):
                 current_command = line.strip()[1:].strip()
-                self.roptions[self.loptions[0].index(current_category)] = os.popen3(current_command)[1].read().split("\n")[:-1]
+                output_thing = popen3(current_command)[1]
+                output_data = output_thing.read()
+                output_lines = output_thing.read().decode('utf-8').splitlines()
+                output_elements = output_lines[:-1]
+                self.roptions[self.loptions[0].index(current_category)] = output_elements
             else:
                 current_command = line.strip()
                 self.commands[current_name] = current_command
@@ -373,8 +390,8 @@ class Menu:
         if what in self.commands:
             os.system(self.commands[what])
         else:
-            print "No command for:", what
-            print self.commands
+            print("No command for:", what)
+            print(self.commands)
 
     def lselect(self, text):
         if self.lactive:
@@ -392,6 +409,7 @@ class Menu:
     def rmenu(self):
         return self.roptions[self.lselected]
 
+
 def main():
 
     W = 1024
@@ -405,8 +423,9 @@ def main():
     mp = MenuProgram(W, H, BG, FG, LAYOUT, SPLASH, FULL)
 
     pygame.display.quit()
-    print "Bye!"
+    print("Bye!")
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
